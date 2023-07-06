@@ -1,9 +1,10 @@
 package com.example.onlineticketbooking.web;
 
 import com.example.onlineticketbooking.dto.ticket.TicketApiPage;
+import com.example.onlineticketbooking.dto.ticket.TicketCreateRequest;
 import com.example.onlineticketbooking.dto.ticket.TicketResponse;
-import com.example.onlineticketbooking.dto.user.UserApiPage;
-import com.example.onlineticketbooking.dto.user.UserResponse;
+import com.example.onlineticketbooking.dto.ticket.TicketUpdateRequest;
+import com.example.onlineticketbooking.error.InvalidObjectException;
 import com.example.onlineticketbooking.mapping.TicketMapper;
 import com.example.onlineticketbooking.model.Ticket;
 import com.example.onlineticketbooking.service.TicketService;
@@ -12,8 +13,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/tickets")
@@ -51,7 +53,42 @@ public class TicketController {
     }
 
     @DeleteMapping("/{ticketId}")
-    public void deleteTicketsById(@PathVariable String ticketId){ticketService.deleteById(ticketId);}
+    public void deleteTicketsById(@PathVariable String ticketId){ticketService.cancelTicket(ticketId);}
+
+    @PostMapping("")
+    public ResponseEntity<TicketResponse>createTicket(@RequestBody TicketCreateRequest ticketDto){
+        Map<String, String> validationErrors = validator.validate(ticketDto);
+        if (validationErrors.size() != 0) {
+            throw new InvalidObjectException("Invalid Ticket Create", validationErrors);
+        }
+
+        Ticket ticket = ticketMapper.modelFromCreateRequest(ticketDto);
+
+        Ticket saveTicket = ticketService.bookTicket(ticket);
+
+        TicketResponse ticketResponse = ticketMapper.responseFromModel(saveTicket);
+
+        return  ResponseEntity.status(201).body(ticketResponse);
+
+    }
+
+    @PutMapping("/{ticketId}")
+    public ResponseEntity<TicketResponse>updateTicket(@PathVariable String ticketId, @RequestBody TicketUpdateRequest ticketDto){
+        Map<String, String> validationErrors = validator.validate(ticketDto);
+        if (validationErrors.size() != 0) {
+            throw new InvalidObjectException("Invalid Ticket Update", validationErrors);
+        }
+
+        Ticket findTicket = ticketService.findById(ticketId);
+
+        ticketMapper.updateModelFromDto(ticketDto,findTicket);
+
+        Ticket saveTicket = ticketService.bookTicket(findTicket);
+
+        TicketResponse ticketResponse = ticketMapper.responseFromModel(saveTicket);
+
+        return ResponseEntity.status(200).body(ticketResponse);
+    }
 
 
 }

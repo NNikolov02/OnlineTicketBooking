@@ -1,11 +1,9 @@
 package com.example.onlineticketbooking.dto.ticket;
 
 import com.example.onlineticketbooking.dto.EventDto;
-import com.example.onlineticketbooking.dto.UserDto;
+import com.example.onlineticketbooking.dto.CustomerDto;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Data
 @Builder
@@ -15,7 +13,7 @@ public class TicketCreateRequest {
 
     private String totalPrize;
 
-    private UserDto user;
+    private CustomerDto user;
 
     private EventDto event;
 }

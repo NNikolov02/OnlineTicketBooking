@@ -1,14 +1,13 @@
 package com.example.onlineticketbooking.repository;
 
-import com.example.onlineticketbooking.model.User;
+import com.example.onlineticketbooking.model.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface UserRepository extends CrudRepository<User,UUID> {
+public interface CustomerRepository extends CrudRepository<Customer,UUID> {
 
-    Optional<User> findByUsername(String username);
+
 }

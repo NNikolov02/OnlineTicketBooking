@@ -2,7 +2,7 @@ package com.example.onlineticketbooking.dto.ticket;
 
 
 import com.example.onlineticketbooking.dto.EventDto;
-import com.example.onlineticketbooking.dto.UserDto;
+import com.example.onlineticketbooking.dto.CustomerDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class TicketUpdateRequest {
 
     private String totalPrize;
 
-    private UserDto user;
+    private CustomerDto user;
 
     private EventDto event;
 }

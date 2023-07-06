@@ -1,20 +1,16 @@
-package com.example.onlineticketbooking.dto.user;
+package com.example.onlineticketbooking.dto.customer;
 
 import com.example.onlineticketbooking.dto.TicketDto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.UUID;
-
 @Data
 @Builder
-public class UserResponse {
-
-    private UUID id;
-
+public class CustomerCreateRequest {
     private String user_name;
     private String password;
     private String email;
     private String role;
+
     private TicketDto ticket;
 }

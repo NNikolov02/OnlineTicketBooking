@@ -2,7 +2,6 @@ package com.example.onlineticketbooking.service;
 
 import com.example.onlineticketbooking.error.NotFoundObjectException;
 import com.example.onlineticketbooking.model.Ticket;
-import com.example.onlineticketbooking.model.User;
 import com.example.onlineticketbooking.repository.TicketPagingRepository;
 import com.example.onlineticketbooking.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +28,11 @@ public class TicketService {
 
     }
 
-    public Ticket save(Ticket ticket){
+    public Ticket bookTicket(Ticket ticket){
         return  repo.save(ticket);
     }
-    public void deleteById(String ticketId) {
+
+    public void cancelTicket(String ticketId) {
         repo.deleteById(UUID.fromString(ticketId));
     }
 

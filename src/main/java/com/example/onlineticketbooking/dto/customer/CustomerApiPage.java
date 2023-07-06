@@ -1,4 +1,4 @@
-package com.example.onlineticketbooking.dto.user;
+package com.example.onlineticketbooking.dto.customer;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +9,11 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode
-public class UserApiPage<T> {
+public class CustomerApiPage<T> {
 
     private List<T> content;
     private PaginationMetadata pagination;
-    public UserApiPage(Page<T> springPage){
+    public CustomerApiPage(Page<T> springPage){
         this.content = springPage.getContent();
         this.pagination = PaginationMetadata.builder().currentPage(springPage.getPageable().getPageNumber())
                 .pageSize(springPage.getPageable().getPageSize())

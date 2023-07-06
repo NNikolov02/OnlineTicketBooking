@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@Mapper(uses = {EventMapperDto.class, UserMapperDto.class})
+@Mapper(uses = {EventMapperDto.class, CustomerMapperDto.class})
 public interface TicketMapper {
 
 
@@ -21,12 +21,12 @@ public interface TicketMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "event",  ignore = true)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "customer", ignore = true)
     Ticket modelFromCreateRequest(TicketCreateRequest ticketCreateDto);
 
   TicketResponse responseFromModel(Ticket ticket);
     @Mapping(target = "event",ignore = true)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "customer", ignore = true)
     @Mapping(target = "quantity",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "totalPrize", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateModelFromDto(TicketUpdateRequest ticketUpdateDto, @MappingTarget Ticket ticket);

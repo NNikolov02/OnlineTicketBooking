@@ -31,8 +31,8 @@ public class Ticket {
     private Event event;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @JsonIgnoreProperties("ticket")
-    private User user;
+    private Customer customer;
 
 }

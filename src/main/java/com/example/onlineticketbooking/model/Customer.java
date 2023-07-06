@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Customer {
 
     @Id
     @GeneratedValue
@@ -21,12 +21,13 @@ public class User {
     @JsonProperty("id")
     private UUID id;
 
-    private String user_name;
+    @Column(name = "username", unique = true)
+    private String username;
     private String password;
     private String email;
     private String role;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("user")
+    @OneToOne(mappedBy = "customer", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("customer")
     private Ticket ticket;
 }
